@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,16 @@ public class CurrencyExchangeService {
 
 	private static final Logger logger = LogManager.getLogger(CurrencyExchangeService.class);
 
-    @Value("${api.key}")
+	@Value("${api.key}")
 	private String apiKey;
-
+	
     @Value("${api.url}")
-	private String apiUrl;
-
+    private String apiUrl;
+    
+	@Autowired
+	RestTemplate restTemplate;
+	
 	public BigDecimal getExchangeRate(String baseCurrency, String targetCurrency) {
-		RestTemplate restTemplate = new RestTemplate();
 
 		try {
 			String url = String.format("%s%s%s%s",apiUrl,baseCurrency,CommonConstants.API_KEY,apiKey);  

@@ -11,28 +11,39 @@ The solution consists of:
 - **DiscountService**: Applies discounts based on user type and bill conditions.
 - **CurrencyExchangeController**: Handles bill processing requests and returns the payable amount.
 
-## Project Structure
 
-Spring Boot "Currency-Exchange" Example Project
-This is a sample Java / Maven / Spring Boot application that can be used as a starter for 
-creating a microservice. I hope it helps you.
+## Build Steps
 
-Requirements:
-For building and running the application you need:
-	1. JDK 17
-	2. Maven 3.1
+1. Clone the repository.
+2. Add your API key for currency exchange service.
+3. Run `mvn clean install` to build the project.
+4. Run the application with `mvn spring-boot:run`.
+5. Access the API at `http://localhost:8082/api/bill/calculate`.
 
-How to Run:
+## UML Diagram
+
+![UML Diagram](uml-diagram.png)
+
+## Test Coverage Report
+
+1. Run `mvn test` to execute unit tests.
+2. Coverage report can be generated using a plugin like `jacoco`.
+
+## Assumptions
+
+1. The user type is one of "employee", "affiliate", or "customer".
+2. Currency codes are 3-letter ISO codes.
+
+## Steps to Run
 This application is packaged as a jar. 
-	1. Clone this repository.
-	2. Make sure you are using JDK 17 and Maven 3.x.
-	3. You can build the project running mvn clean install package.
-	4. Once successfully built, you can run the main method in the CurrencyExchangeServiceApplication class 
-	from your IDE.
-	5. Once application is up and running. You can open any API testing tool like POSTMAN and run the API. 
+1. Clone this repository.
+2. Make sure you are using JDK 17 and Maven 3.x.
+3. You can build the project running mvn clean install package.
+4. Once successfully built, you can run the main method in the CurrencyExchangeServiceApplication class 
+from your IDE.
+5. Once application is up and running. You can open any API testing tool like POSTMAN and run the API. 
 
-
-Currency Conversion API
+## Currency Conversion API
 
 Request Type : POST
 URL: '/api/calculate'

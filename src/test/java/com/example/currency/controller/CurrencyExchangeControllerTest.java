@@ -25,7 +25,7 @@ import com.example.currency.service.DiscountService;
 class CurrencyExchangeControllerTest {
 
     @Mock
-	private CurrencyExchangeService currencyExchangeService;
+    private CurrencyExchangeService currencyExchangeService;
 	
     @Mock
     private DiscountService discountService;

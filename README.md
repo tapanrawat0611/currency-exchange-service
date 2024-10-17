@@ -41,7 +41,7 @@ from your IDE.
 
 ## UML Diagram
 UML diagram is added on this path - src/main/resources/templates/UML_image.png
-![UML Diagram](./resources/templates/UML_image.png)
+![UML Diagram](src/main/resources/templates/UML_image.png)
 
 ## Currency Conversion API
 

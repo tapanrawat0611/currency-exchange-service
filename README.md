@@ -20,10 +20,6 @@ The solution consists of:
 4. Run the application with `mvn spring-boot:run`.
 5. Access the API at `http://localhost:8082/api/bill/calculate`.
 
-## UML Diagram
-
-![UML Diagram](uml-diagram.png)
-
 ## Test Coverage Report
 
 1. Run `mvn test` to execute unit tests.
@@ -45,11 +41,11 @@ from your IDE.
 
 ## Currency Conversion API
 
-Request Type : POST
-URL: '/api/calculate'
-Authentication: Basic Auth (user/password)
+**Request Type**: POST
+**URL**: '/api/calculate'
+**Authentication**: Basic Auth (user/password)
 
-Request Body:
+**Request Body**:
 {
     "amount": 100,
     "userType": "employee",
@@ -60,7 +56,7 @@ Request Body:
  } 
   
 
-Expected Response:
+**Expected Response**:
 {
     "payableAmount": 5465.8102200,
     "currency": "INR"

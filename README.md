@@ -39,6 +39,10 @@ This application is packaged as a jar.
 from your IDE.
 5. Once application is up and running. You can open any API testing tool like POSTMAN and run the API. 
 
+## UML Diagram
+UML diagram is added on this path - src/main/resources/templates/UML_image.png
+![UML Diagram](./resources/templates/UML_image.png)
+
 ## Currency Conversion API
 
 **Request Type**: POST

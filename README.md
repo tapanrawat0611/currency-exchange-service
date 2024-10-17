@@ -9,12 +9,12 @@ This project is a Spring Boot application that integrates with a currency exchan
 The solution consists of:
 - **CurrencyExchangeService**: Retrieves real-time exchange rates from a third-party API.
 - **DiscountService**: Applies discounts based on user type and bill conditions.
-- **PaymentController**: Handles bill processing requests and returns the payable amount.
+- **CurrencyExchangeController**: Handles bill processing requests and returns the payable amount.
 
 ## Project Structure
 
 Spring Boot "Currency-Exchange" Example Project
-This is a sample Java / Maven / Spring Boot (version 3.1.1) application that can be used as a starter for 
+This is a sample Java / Maven / Spring Boot application that can be used as a starter for 
 creating a microservice. I hope it helps you.
 
 Requirements:
@@ -28,7 +28,7 @@ This application is packaged as a jar.
 	2. Make sure you are using JDK 17 and Maven 3.x.
 	3. You can build the project running mvn clean install package.
 	4. Once successfully built, you can run the main method in the CurrencyExchangeServiceApplication class 
-		from your IDE.
+	from your IDE.
 	5. Once application is up and running. You can open any API testing tool like POSTMAN and run the API. 
 
 

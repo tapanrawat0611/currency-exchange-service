@@ -40,23 +40,18 @@ class CurrencyExchangeControllerTest {
 
     @Test
     void testCurrencyExchange_Success() {
-        // Arrange
         BigDecimal amount = new BigDecimal("1000");
         String userType = "employee";
         String originalCurrency = "USD";
         String targetCurrency = "EUR";
         boolean isGrocery = false;
         LocalDateTime customerTenure = LocalDateTime.now().minusYears(3);
-        
         BillRequest request = new BillRequest(amount, userType, originalCurrency, targetCurrency, isGrocery, customerTenure);
         
-        BigDecimal expectedDiscount = new BigDecimal("300"); 
-        BigDecimal exchangeRate = new BigDecimal("0.85");
         BigDecimal expectedPayableAmount = new BigDecimal("595.00"); 
+        BillResponse resp = new BillResponse(expectedPayableAmount, request.getTargetCurrency());
 
-        when(discountService.calculateDiscount(amount, userType, isGrocery, customerTenure)).thenReturn(expectedDiscount);
-        when(currencyExchangeService.getExchangeRate(originalCurrency, targetCurrency)).thenReturn(exchangeRate);
-
+        when(currencyExchangeService.exchangeCurrencyAndCalculateDiscount(request)).thenReturn(resp);
         ResponseEntity<?> response = currencyExchangeController.currencyExchange(request);
 
         assertNotNull(response);
@@ -66,8 +61,7 @@ class CurrencyExchangeControllerTest {
         assertEquals(expectedPayableAmount, billResponse.getPayableAmount());
         assertEquals(targetCurrency, billResponse.getCurrency());
 
-        verify(discountService, times(1)).calculateDiscount(amount, userType, isGrocery, customerTenure);
-        verify(currencyExchangeService, times(1)).getExchangeRate(originalCurrency, targetCurrency);
-    }
+        verify(currencyExchangeService, times(1)).exchangeCurrencyAndCalculateDiscount(request);
+     }
   }
 

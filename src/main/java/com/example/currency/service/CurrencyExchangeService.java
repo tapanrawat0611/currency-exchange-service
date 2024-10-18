@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +14,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.currency.constant.CommonConstants;
 import com.example.currency.exceptionhandler.CustomException;
+import com.example.currency.request.BillRequest;
+import com.example.currency.response.BillResponse;
 import com.example.currency.response.ExchangeRateResponse;
 
 @Service
@@ -24,19 +25,37 @@ public class CurrencyExchangeService {
 
 	@Value("${api.key}")
 	private String apiKey;
-	
-    @Value("${api.url}")
-    private String apiUrl;
-    
-	@Autowired
-	RestTemplate restTemplate;
-	
+
+	@Value("${api.url}")
+	private String apiUrl;
+
+	private final RestTemplate restTemplate;
+
+	private final DiscountService discountService;
+
+	public CurrencyExchangeService(RestTemplate restTemplate, DiscountService discountService) {
+		this.restTemplate = restTemplate;
+		this.discountService = discountService;
+	}
+
+	public BillResponse exchangeCurrencyAndCalculateDiscount(BillRequest request) {
+		BigDecimal exchangeRate = getExchangeRate(request.getOriginalCurrency(), request.getTargetCurrency());
+
+		BigDecimal totalDiscount = discountService.calculateDiscount(request.getAmount(), request.getUserType(),
+				request.isGrocery(), request.getCustomerTenure());
+
+		BigDecimal discountedAmount = request.getAmount().subtract(totalDiscount);
+		BigDecimal payableAmount = discountedAmount.multiply(exchangeRate);
+
+		return new BillResponse(payableAmount, request.getTargetCurrency());
+	}
+
 	public BigDecimal getExchangeRate(String baseCurrency, String targetCurrency) {
 
 		try {
-			String url = String.format("%s%s%s%s",apiUrl,baseCurrency,CommonConstants.API_KEY,apiKey);  
+			String url = String.format("%s%s%s%s", apiUrl, baseCurrency, CommonConstants.API_KEY, apiKey);
 			logger.info("Initiate get exchange rate request url: {} for target currency: {}", url, targetCurrency);
-			
+
 			ResponseEntity<ExchangeRateResponse> response = restTemplate.getForEntity(url, ExchangeRateResponse.class);
 
 			if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {

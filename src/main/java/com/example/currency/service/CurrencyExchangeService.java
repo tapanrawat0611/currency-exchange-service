@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,12 @@ public class CurrencyExchangeService {
 	@Value("${api.url}")
 	private String apiUrl;
 
-	private final RestTemplate restTemplate;
+	@Autowired
+	private RestTemplate restTemplate;
 
 	private final DiscountService discountService;
 
-	public CurrencyExchangeService(RestTemplate restTemplate, DiscountService discountService) {
-		this.restTemplate = restTemplate;
+	public CurrencyExchangeService(DiscountService discountService) {
 		this.discountService = discountService;
 	}
 
